@@ -1,0 +1,195 @@
+﻿
+@{
+    Layout = null; // Loại bỏ Layout cho trang này
+}
+<link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="~/css/magnific-popup.css" type="text/css">
+<link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="~/css/style.css" type="text/css">
+<link rel="stylesheet" href="~/css/font-end.css" type="text/css">
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        margin-top: 0;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        color: #333;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .highlight {
+        background-color: #f5f5f5;
+    }
+</style>
+
+<div class="container">
+    <h2>Total Revenue</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">Total Revenue (VND)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-center">@String.Format("{0:0,0}", Model.TotalRevenue)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Revenue (VND)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var monthRevenue in Model.MonthlyRevenue)
+            {
+                <tr>
+                    <td>@monthRevenue.Key</td>
+                    <td class="text-center">@String.Format("{0:0,0}", monthRevenue.Value)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2>Product Revenue</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">Top Products</th>
+                <th>Product</th>
+                <th class="text-center">Total Revenue (VND)</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int count = 0;
+                foreach (var item in Model.ProductRevenue)
+                {
+                    <tr>
+                        <td class="text-center">
+                            @{
+                                // Kiểm tra xem hàng hiện tại có phải là hàng hàng đầu không
+                                if (count < 3)
+                                {
+                                    <span class="badge badge-info">Top @(count + 1)</span>
+                                }
+                                else
+                                {
+                                    <span></span> <!-- Nếu không phải hàng hàng đầu, không hiển thị gì cả -->
+                                }
+                                count++;
+                            }
+                        </td>
+                        <td>@item.Key</td>
+                        <td class="text-center">@String.Format("{0:0,0}", item.Value)</td>
+                        
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+
+    <h2>Products Sold in Each Month</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Product</th>
+                <th class="text-center">Quantity Sold</th>
+                <th class="text-center">Total Amount (VND)</th> <!-- New column -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var monthEntry in Model.ProductsSoldInMonth)
+            {
+                foreach (var productEntry in monthEntry.Value)
+                {
+                    var productName = productEntry.Key;
+                    var quantitySold = productEntry.Value;
+                    var productPrice = Model.ProductPrices.ContainsKey(productName) ? Model.ProductPrices[productName] : 0;
+                    var totalAmount = quantitySold * productPrice;
+
+                    <tr>
+                        <td>@monthEntry.Key</td>
+                        <td>@productName</td>
+                        <td class="text-center">@quantitySold</td>
+                        <td class="text-center">@String.Format("{0:0,0}", totalAmount)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/jquery.nicescroll.min.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/jquery.countdown.min.js"></script>
+<script src="~/js/jquery.slicknav.js"></script>
+<script src="~/js/mixitup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="~/js/main.js"></script>
+<script src="~/js/font-end.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,0 +1,621 @@
+﻿@model TMDTFINAL.Models.ApplicationUser
+@{
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet">
+<style>
+    header {
+        display:none;
+    }
+    footer {
+        display : none;
+    }
+    .phicssprofile .main-body {
+        padding: 15px;
+    }
+
+    .phicssprofile .card {
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+    }
+
+    .phicssprofile .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid rgba(0,0,0,.125);
+        border-radius: .25rem;
+    }
+
+    .phicssprofile .card-body {
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1rem;
+    }
+
+    .phicssprofile .phicsswait {
+        display: flex;
+        flex-direction: column;
+        align-items: center
+    }
+
+
+
+        .phicssprofile .phicsswait i {
+            font-size: 19px;
+            z-index: 9999;
+        }
+
+    .phicssprofile input {
+        width: 32% !important;
+    }
+
+    .phicssprofile .gutters-sm {
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+
+        .phicssprofile .gutters-sm > .col, .gutters-sm > [class*=col-] {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+    .phicssprofile .mb-3, .my-3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .phicssprofile .bg-gray-300 {
+        background-color: #e2e8f0;
+    }
+
+    .phicssprofile .h-100 {
+        height: 100% !important;
+    }
+
+    .phicssprofile .profile input {
+        border: 1px solid white;
+        width: 50% !important;
+    }
+
+    .phicssprofile .shadow-none {
+        box-shadow: none !important;
+    }
+
+    .phicsstrchitiet td {
+        font-size: 16px;
+    }
+</style>
+<section>
+    <div class="container">
+        <div class="phicssprofile">
+            <div class="main-body">
+
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="main-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">User Profile</li>
+
+                    </ol>
+                </nav>
+                <!-- /Breadcrumb -->
+
+                <div class="row gutters-sm">
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img src="@ViewBag.data.ImageUrl" alt="Admin" class="rounded-circle" height="150" width="150" style="object-fit:cover">
+                                    <div class="mt-3 ">
+                                        <h4>@ViewBag.data.Name</h4>
+                                        <form id="editUserImgForm" asp-action="edituserimg" method="post" enctype="multipart/form-data">
+                                            <p class="text-muted font-size-sm">Thêm Avatar</p>
+                                            <p class="text-muted font-size-sm">
+                                                <input type="file" name="file" id="fileInput" />
+                                                <input type="hidden" name="iduser" value="@ViewBag.data.Id" />
+                                            </p>
+                                            <button class="btn btn-primary">Cập Nhật</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-3">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">Lịch Sử Mua Hàng</h6>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+                                        <span class="btn btn-primary" style="color : white">Xem</span>
+                                    </button>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body profile">
+                                <form id="editUserForm">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Full Name</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input id="Name" placeholder="@ViewBag.data.Name" />
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Email</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input id="Email" placeholder="@ViewBag.data.Email" />
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Phone</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input id="Phone" placeholder="@ViewBag.data.PhoneNumber" />
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Address</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input id="Address" placeholder="@ViewBag.data.Address" />
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button class="btn btn-primary" type="submit">Edit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="row gutters-sm">
+                            <div class="col-sm-3 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body phicsswait">
+                                        <h6 class="d-flex align-items-center mb-3" style="color : #007bff">Chờ Xác Nhận</h6>
+
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                            <small>
+                                                <i class="fa-solid fa-box-open fa-beat" style="color: white;"></i>
+                                                <span class="badge rounded-pill badge-notification bg-danger">@ViewBag.choxacnhan.Count</span>
+
+                                            </small>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body phicsswait">
+                                        <h6 class="d-flex align-items-center mb-3" style="color : #007bff">Chờ Lấy Hàng</h6>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                                            <small>
+                                                <i class="fa-solid fa-box fa-beat" style="color: white;"></i>
+                                                <span class="badge rounded-pill badge-notification bg-danger">@ViewBag.cholayhang.Count</span>
+                                            </small>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body phicsswait">
+                                        <h6 class="d-flex align-items-center mb-3" style="color : #007bff">Chờ Giao Hàng</h6>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
+                                            <small>
+                                                <i class="fa-solid fa-truck fa-beat" style="color: white;"></i>
+                                                <span class="badge rounded-pill badge-notification bg-danger">@ViewBag.danggiao.Count</span>
+                                            </small>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body phicsswait">
+                                        <h6 class="d-flex align-items-center mb-3" style="color : #007bff">Đánh Giá</h6>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal4">
+                                            <small>
+                                                <i class="fa-solid fa-star-half-stroke fa-beat" style="color: white;"></i>
+                                                <span class="badge rounded-pill badge-notification bg-danger">@ViewBag.danhgia.Count</span>
+                                            </small>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h1 class="modal-title">Chờ Xác Nhận</h1>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tổng Tiền</th>
+                                    <th>Chi Tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.choxacnhan)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@String.Format("{0:0,0}", item.Total)đ</td>
+                                        <td>
+                                            <button type="button" class="btn chiTietButton" data-toggle="modal" data-target="#myModal6" data-item-id="@item.Id">
+                                                <a asp-action="getchitiet" asp-route-id="@item.Id">Chi Tiết</a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal" id="myModal2">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h1 class="modal-title">Chờ Lấy Hàng</h1>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tổng Tiền</th>
+                                    <th>Chi Tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.cholayhang)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@String.Format("{0:0,0}", item.Total)đ</td>
+                                        <td>
+                                            <button type="button" class="btn chiTietButton" data-toggle="modal" data-target="#myModal6" data-item-id="@item.Id">
+                                                <a asp-action="getchitiet" asp-route-id="@item.Id">Chi Tiết</a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="modal" id="myModal3">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h1 class="modal-title">Đang Giao</h1>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tổng Tiền</th>
+                                    <th>Chi Tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.danggiao)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@String.Format("{0:0,0}", item.Total)đ</td>
+                                        <td>
+                                            <button type="button" class="btn chiTietButton" data-toggle="modal" data-target="#myModal6" data-item-id="@item.Id">
+                                                <a asp-action="getchitiet" asp-route-id="@item.Id">Chi Tiết</a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal" id="myModal4">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h1 class="modal-title">Đánh Giá</h1>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Ma HĐ</th>
+                                    <th>Tổng Tiền</th>
+                                    <th>Chi Tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.danhgia)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@String.Format("{0:0,0}", item.total)đ</td>
+                                        <td>
+                                            <button type="button" class="btn">Chi Tiết</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="myModal5">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h1 class="modal-title">Lịch Sử Mua Hàng</h1>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Mã HĐ</th>
+                                    <th scope="col">Ngày</th>
+                                    <th scope="col">Tổng Tiền</th>
+                                    <th scope="col">Xem Chi Tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.lichsumuahang)
+                                {
+                                    <tr>
+                                        <th scope="row">@item.Id</th>
+                                        <td>@item.OrderDate</td>
+                                        <td>@String.Format("{0:0,0}", item.Total)đ</td>
+                                        <td>
+                                            <button type="button" class="btn chiTietButton" data-toggle="modal" data-target="#myModal6" data-item-id="@item.Id">
+                                                <a asp-action="getchitiet" asp-route-id="@item.Id">Chi Tiết</a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="myModal6">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h1 class="modal-title">Chi Tiết Hóa Đơn</h1>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">Ảnh</th>
+                                <th scope="col">Tên SP</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Giá</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodychitiet">
+                        </tbody>
+                    </table>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Link CDN của MDB UI Kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+
+<div id="chitietDonHang"></div>
+
+<script>
+    $(document).on("click", ".chiTietButton", function (e) {
+        e.preventDefault(); // Ngăn chuyển hướng khi liên kết được nhấn
+        // Thực hiện yêu cầu AJAX
+        var itemId = $(this).data("item-id");
+        $.ajax({
+            url: `/User/UserMagement/getchitiet?id=${itemId}`,
+            type: "POST",
+            success: function (data) {
+                $("#bodychitiet").empty();
+                data.forEach(function (item) {
+                    console.log(item);
+                    var productItem = $(`
+                                <tr class="phicsstrchitiet">
+                                    <th scope="row"><img src="${item.sanPham.imageUrl}" alt="${item.sanPham.ame}" style="object-fit: cover; width: 80px; height: 80px" /></th>
+                                     <td>${item.sanPham.name}</td>
+                                    <td>${item.quantity}</td>
+                                    <td>${item.productPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                                </tr>
+                            `);
+                    // Thêm dòng vào bảng có id "tablechitiet"
+                    $("#bodychitiet").append(productItem);
+                });
+            },
+            error: function () {
+                alert("Đã xảy ra lỗi khi gửi yêu cầu.");
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $("#editUserImgForm").submit(function (e) {
+        e.preventDefault(); // Ngăn gửi form mặc định
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "/User/UserMagement/edituserimg", // Thay thế ControllerName bằng tên của controller thích hợp
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Up Avata Thành Công',
+                    showConfirmButton: false,
+                    timer: 1500 // Tự động đóng sau 1.5 giây
+                }).then(function () {
+                    location.reload(); // Reload trang
+                });
+            },
+            error: function () {
+                alert("Đã xảy ra lỗi khi gửi yêu cầu.");
+            }
+        });
+    });
+</script>
+<script>
+    $("#editUserForm").submit(function (e) {
+        e.preventDefault(); // Ngăn gửi form mặc định
+
+        var formData = {
+            Name: $("#Name").val(),
+            Email: $("#Email").val(),
+            Phone: $("#Phone").val(),
+            Address: $("#Address").val()
+        };
+
+        $.ajax({
+            url: "/User/UserMagement/edituser", // Thay "ControllerName" bằng tên thực tế của controller
+            type: "POST",
+            data: formData,
+            success: function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Edit User Thành Công',
+                    showConfirmButton: false,
+                    timer: 1500 // Tự động đóng sau 1.5 giây
+                }).then(function () {
+                    location.reload(); // Reload trang
+                });
+            },
+            error: function () {
+                alert("Đã xảy ra lỗi khi gửi yêu cầu.");
+            }
+        });
+    });
+</script>

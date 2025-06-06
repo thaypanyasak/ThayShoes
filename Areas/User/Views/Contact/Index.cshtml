@@ -1,0 +1,295 @@
+﻿@model IEnumerable<Mess>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+<!-- Add your CSS files here -->
+<!-- Example: <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css"> -->
+@{
+    ViewData["Title"] = "Contact";
+    ViewBag.active = 4;
+}
+<style>
+    /* CSS cho form chat */
+    #chat1 .form-outline .form-control ~ .form-notch div {
+        pointer-events: none;
+        border: 1px solid;
+        border-color: #eee;
+        box-sizing: border-box;
+        background: transparent;
+    }
+
+    /* Các phần tử trong form chat */
+    #chat1 .form-outline .form-control ~ .form-notch .form-notch-leading {
+        left: 0;
+        top: 0;
+        height: 108%;
+        border-right: none;
+        border-radius: .65rem 0 0 .65rem;
+    }
+
+    #chat1 .form-outline .form-control ~ .form-notch .form-notch-middle {
+        flex: 0 0 auto;
+        max-width: calc(100% - 1rem);
+        height: 100%;
+        border-right: none;
+        border-left: none;
+    }
+
+    #chat1 .form-outline .form-control ~ .form-notch .form-notch-trailing {
+        flex-grow: 1;
+        height: 100%;
+        border-left: none;
+        border-radius: 0 .65rem .65rem 0;
+    }
+
+    #chat1 .form-outline .form-control:focus ~ .form-notch .form-notch-leading {
+        border-top: 0.125rem solid #000000;
+        border-bottom: 0.125rem solid #000000;
+        border-left: 0.125rem solid #000000;
+    }
+
+    #chat1 .form-outline .form-control:focus ~ .form-notch .form-notch-leading,
+    #chat1 .form-outline .form-control.active ~ .form-notch .form-notch-leading {
+        border-right: none;
+        transition: all 0.2s linear;
+    }
+
+    #chat1 .form-outline .form-control:focus ~ .form-notch .form-notch-middle {
+        border-bottom: 0.125rem solid;
+        border-color: #000000;
+    }
+
+    #chat1 .form-outline .form-control:focus ~ .form-notch .form-notch-middle,
+    #chat1 .form-outline .form-control.active ~ .form-notch .form-notch-middle {
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        transition: all 0.2s linear;
+    }
+
+    #chat1 .form-outline .form-control:focus ~ .form-notch .form-notch-trailing {
+        border-top: 0.125rem solid #000000;
+        border-bottom: 0.125rem solid #000000;
+        border-right: 0.125rem solid #000000;
+    }
+
+    #chat1 .form-outline .form-control:focus ~ .form-notch .form-notch-trailing,
+    #chat1 .form-outline .form-control.active ~ .form-notch .form-notch-trailing {
+        border-left: none;
+        transition: all 0.2s linear;
+    }
+
+    #chat1 .form-outline .form-control:focus ~ .form-label {
+        color: #000000;
+    }
+
+    #chat1 .form-outline .form-control ~ .form-label {
+        color: #bfbfbf;
+    }
+
+    /* Phần thông tin liên hệ */
+    .contact__text ul li {
+        list-style-type: none;
+        margin-bottom: 20px;
+    }
+
+    /* Mã CSS khác */
+    .phicsstong {
+        margin-top: 20px;
+    }
+
+    .phicardbody {
+        overflow: auto;
+        width: 100% !important;
+    }
+
+    .phicsschat .card-header {
+        background: #000000
+    }
+
+    .phicsschat .phicsschatuser {
+        background: #000000 !important;
+    }
+
+    .small, small {
+        font-size: 80%;
+        font-weight: 400;
+        margin-right: 10px;
+    }
+
+    .form-control-lg {
+        margin-right: 20px;
+    }
+</style>
+<!-- Map Begin -->
+<div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.7204548192885!2d106.86619157480811!3d10.984460189177264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174ddb237f9dd59%3A0x3ff1538c511f05d7!2zVHLGsOG7nW5nIMSQ4bqhaSBI4buNYyBDw7RuZyBOZ2jhu4cgxJDhu5NuZyBOYWk!5e0!3m2!1svi!2s!4v1698906029021!5m2!1svi!2s" height="500" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+</div>
+<!-- Map End -->
+<!-- Contact Section Begin -->
+<section class="contact spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__text">
+                    <div class="section-title">
+                        <span>Information</span>
+                        <h2>Contact Us</h2>
+                        <p>
+                            As you might expect of a company that began as a high-end interiors contractor, we pay strict attention.
+                        </p>
+                    </div>
+                    <ul>
+                        <li>
+                            <h4>America</h4>
+                            <p>195 E Parker Square Dr, Parker, CO 801 <br />+43 982-314-0958</p>
+                        </li>
+                        <li>
+                            <h4>France</h4>
+                            <p>109 Avenue Léon, 63 Clermont-Ferrand <br />+12 345-423-9893</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__text">
+                    <!-- Form chat -->
+                    <div class="phicsstong">
+                        <form asp-action="Mess" method="post" id="chatForm">
+                            <div class="card phicsschat" id="chat2">
+                                <div class="card-header d-flex justify-content-between align-items-center p-3">
+                                    <h5 style="color: white" class="mb-0">Chat</h5>
+                                    <button style="background: white; color: #000000 " type="button" class="btn" data-mdb-ripple-color="dark">
+                                        Let's Chat App
+                                    </button>
+                                </div>
+                                <div class="card-body phicardbody" data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px">
+                                    <!-- Hiển thị tin nhắn -->
+                                    @if (Model != null)
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            if (item.nguoinhan == ViewBag.user)
+                                            {
+                                                <div class="d-flex flex-row align-items-center justify-content-end  mb-4 pt-1" style="height: auto">
+                                                    <div>
+                                                        <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-dark phicsschatuser">@item.content</p>
+                                                        <p style="font-size: 12px; height: 12px; margin-bottom: -12px">@item.date.ToString("HH:mm")</p>
+                                                    </div>
+                                                    <img src="@ViewBag.datauer.ImageUrl" alt="avatar 1" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover">
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="d-flex align-items-center flex-row justify-content-start mb-4 pt-1">
+                                                    <img src="https://cdn-icons-png.freepik.com/512/9703/9703596.png" alt="avatar 1" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover">
+                                                    <div style="margin-left: 12px">
+                                                        <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-dark phicssadmin">@item.content</p>
+                                                        <p style="font-size: 12px; height: 12px; margin-bottom: -12px; text-align: right; margin-right: 14px">@item.date.ToString("HH:mm")</p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                                <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+                                    <img src="@ViewBag.datauer.ImageUrl" alt="avatar 3" style="width: 90px; height: 60px; object-fit: cover; border-radius: 50%; margin-right: 20px">
+                                    <input type="text" name="content" class="form-control form-control-lg" id="contentInput" placeholder="Type message">
+                                    @* <a class="ms-1 text-muted" href="#!"><i class="fas fa-paperclip"></i></a>
+                                    <a class="ms-3 text-muted" href="#!"><i class="fas fa-smile"></i></a> *@
+                                    <button type="button" id="sendButton" class="ms-3" href="#!"><i class="fas fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Script để xử lý các sự kiện trong form chat -->
+<script>
+    // Cuộn tới cuối cùng của cuộn
+    function scrollToBottom() {
+        var chatContainer = $('.phicardbody');
+        chatContainer.scrollTop(chatContainer[0].scrollHeight);
+    }
+
+    // Sự kiện khi trang được tải
+    $(document).ready(function () {
+        // Sự kiện khi nhấn nút gửi
+        $('#sendButton').on('click', function () {
+            sendMessage();
+        });
+
+        // Sự kiện khi nhấn phím Enter
+        $('#contentInput').on('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Ngăn việc thay đổi dòng trong trường nhập
+                sendMessage();
+            }
+        });
+
+        // Hàm gửi tin nhắn
+        function sendMessage() {
+            var content = $('#contentInput').val(); // Lấy nội dung từ trường nhập
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+
+            // Định dạng giờ và phút thành chuỗi "giờ:phút"
+            var formattedTime = hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+            $.ajax({
+                type: 'POST',
+                url: $('#chatForm').attr('action'), // Lấy URL từ thuộc tính action của form
+                data: { content: content }, // Gửi nội dung form
+                success: function (response) {
+                    if (response.success) {
+                        // Xử lý phản hồi từ máy chủ (nếu cần)
+
+                        // Xóa nội dung trường tin nhắn
+                        $('#contentInput').val('');
+
+                        // Hiển thị tin nhắn mới
+                        $('.phicardbody').append('<div class="d-flex flex-row align-items-center justify-content-end  mb-4 pt-1"><div><p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary phicsschatuser">' + content + '</p><p  style="font-size: 12px; height: 12px; margin-bottom: -12px">' + formattedTime + '</p></div><img src="@ViewBag.datauer.ImageUrl" alt="avatar 1" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover"></div>');
+                        scrollToBottom();
+
+                        // Gửi tin nhắn trả lời
+                        sendAutoResponse(formattedTime, content);
+                    }
+                }
+            });
+        }
+
+        var autoResponses = {
+            "shop ở đâu": "Shop ở Biên Hòa.",
+            "giờ làm việc": "Shop mở cửa từ 8:00 sáng đến 9:00 tối hàng ngày.",
+            "sản phẩm mới": "Danh sách sản phẩm mới đã được cập nhật trên trang web của chúng tôi.",
+            // Thêm các câu hỏi và câu trả lời khác ở đây
+        };
+
+        // Hàm gửi tin nhắn trả lời
+        function sendAutoResponse(formattedTime, content) {
+            var autoResponse = "";
+            var lowercaseContent = content.toLowerCase(); // Chuyển đổi nội dung tin nhắn thành chữ thường
+
+            // Kiểm tra xem nội dung tin nhắn có trùng khớp với bất kỳ câu hỏi nào trong đối tượng autoResponses không
+            for (var question in autoResponses) {
+                if (lowercaseContent.includes(question)) {
+                    autoResponse = autoResponses[question];
+                    break;
+                }
+            }
+
+            // Nếu không có câu trả lời cho câu hỏi cụ thể, sử dụng câu trả lời mặc định
+            if (autoResponse === "") {
+                autoResponse = "Cảm ơn quý khách, shop sẽ trả lời tin nhắn sớm nhất có thể.";
+            }
+
+            // Hiển thị tin nhắn trả lời
+            $('.phicardbody').append('<div class="d-flex align-items-center flex-row justify-content-start mb-4 pt-1"><img src="https://cdn-icons-png.freepik.com/512/9703/9703596.png" alt="avatar 1" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover"><div style="margin-left: 12px"><p class="small p-2 me-3 mb-1 text-white rounded-3 bg-dark phicssadmin">' + autoResponse + '</p><p style="font-size: 12px; height: 12px; margin-bottom: -12px; text-align: right; margin-right: 14px">' + formattedTime + '</p></div></div>');
+            scrollToBottom();
+        }
+    });
+</script>
+
+

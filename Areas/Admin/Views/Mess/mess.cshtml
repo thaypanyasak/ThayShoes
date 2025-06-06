@@ -1,0 +1,281 @@
+﻿@model IEnumerable<Mess>
+@{
+    Layout = null; // Loại bỏ Layout cho trang này
+}
+<link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="~/css/magnific-popup.css" type="text/css">
+<link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="~/css/style.css" type="text/css">
+<link rel="stylesheet" href="~/css/font-end.css" type="text/css">
+<link rel="stylesheet" href="~/css/phicssshop.css" type="text/css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<style>
+    .phicsschat .nd .nd1 {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        background: #64C9FF;
+    }
+
+        .phicsschat .nd .nd1 h5 {
+            color: white;
+            font-size: 20px;
+            margin-left: 5px;
+        }
+
+        .phicsschat .nd .nd1 button {
+            color: #64C9FF;
+            background: white;
+            border: 3px solid #64C9FF;
+            height: auto;
+        }
+
+    .phicsschat .nd .nd2 {
+        border: 3px solid #64C9FF;
+        padding: 20px;
+        overflow: auto;
+        height: 70vh;
+    }
+
+        .phicsschat .nd .nd2 .nguoigui {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 30px;
+        }
+
+            .phicsschat .nd .nd2 .nguoigui div {
+                color: white;
+                background: #0084FF;
+                padding: 5px 15px;
+                font-size: 17px;
+                border-radius: 30px;
+            }
+
+            .phicsschat .nd .nd2 .nguoigui img {
+                width: 7%;
+                object-fit: cover;
+                height: auto;
+                border-radius: 50%;
+            }
+
+
+        .phicsschat .nd .nd2 .nguoinhan {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-bottom: 30px;
+        }
+
+            .phicsschat .nd .nd2 .nguoinhan div {
+                background: #F0F0F0;
+                padding: 5px 15px;
+                font-size: 17px;
+                border-radius: 30px;
+            }
+
+            .phicsschat .nd .nd2 .nguoinhan img {
+                width: 7%;
+                object-fit: cover;
+                height: auto;
+                border-radius: 50%;
+            }
+
+        .phicsschat .nd .nd2 p {
+            padding: 0 15px;
+        }
+
+    .phicsschat .nd .ndend {
+        background: #0084FF;
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .phicsschat .nd .ndend img {
+            width: 4%;
+            object-fit: cover;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        .phicsschat .nd .ndend input {
+            width: 80%;
+            height: 40px;
+        }
+</style>
+
+<!-- Breadcrumb Section End -->
+<!-- Hero Section End -->
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <section>
+            <div class="phicsschat">
+                <form asp-action="Mess" method="post" id="chatForm">
+
+                    <div class="nd">
+
+
+                        <div class="nd1">
+                            <h5 class="mb-0">Chat</h5>
+                            <button>
+                                Let's Chat
+                                App
+                            </button>
+                        </div>
+
+                        <div class="nd2">
+                            @if (Model != null)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    if (item.nguoinhan == ViewBag.tk)
+                                    {
+                                        <div class="nguoigui">
+                                            <div>
+                                                <div class="">@item.content</div>
+                                                <p>@item.date.ToString("HH:mm")</p>
+                                            </div>
+                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"
+                                                 alt="avatar 1">
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="nguoinhan">
+                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
+                                                 alt="avatar 1">
+                                            <div>
+                                                <div class="">@item.content</div>
+                                                <p>@item.date.ToString("HH:mm")</p>
+                                            </div>
+
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                        <div class="ndend">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
+                                 alt="avatar 3">
+                            <input type="text" name="content" id="contentInput"
+                                   placeholder="Type message">
+                            <input type="hidden" name="idroom" id="idroom" value="@ViewBag.Id" />
+                            @* <a class="" href="#!"><i class="fas fa-paperclip"></i></a>
+                            <a class="" href="#!"><i class="fas fa-smile"></i></a> *@
+                            <button type="button" id="sendButton" href="#!"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </section>
+    </div>
+
+</div>
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/jquery.nicescroll.min.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/jquery.countdown.min.js"></script>
+<script src="~/js/jquery.slicknav.js"></script>
+<script src="~/js/mixitup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="~/js/main.js"></script>
+<script src="~/js/font-end.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function scrollToBottom() {
+        var chatContainer = $('.nd2');
+        chatContainer.scrollTop(chatContainer[0].scrollHeight);
+    }
+    $(document).ready(function () {
+        $('#sendButton').on('click', function () {
+            var content = $('#contentInput').val();
+            var idroom = $('#idroom').val(); // Lấy giá trị idroom từ input ẩn
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+
+            // Định dạng giờ và phút thành chuỗi "giờ:phút"
+            var formattedTime = hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+            $.ajax({
+                type: 'POST',
+                url: $('#chatForm').attr('action'),
+                data: { content: content, idroom: idroom },
+                success: function (response) {
+                    if (response.success) {
+                        // Xử lý phản hồi từ máy chủ (nếu cần)
+                        console.log(response.message); // In thông báo từ máy chủ
+
+                        // Xóa nội dung trường tin nhắn
+                        $('#contentInput').val('');
+
+                        // Hiển thị tin nhắn mới
+
+                        $('.nd2').append('<div class="nguoigui"><div><div class="content">' + content + '</div><p class="time">' + formattedTime + '</p></div><img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1"></div>');
+                        scrollToBottom();
+                    }
+                }
+            });
+        });
+    });
+    $(document).ready(function () {
+        $('#contentInput').on('keydown', function (event) {
+            if (event.key === 'Enter' || event.keyCode === 13) {
+                event.preventDefault(); // Ngăn việc thay đổi dòng trong trường nhập
+
+                var content = $('#contentInput').val();
+                var idroom = $('#idroom').val();
+
+                // Lấy thời gian hiện tại
+                var currentTime = new Date();
+                var hours = currentTime.getHours();
+                var minutes = currentTime.getMinutes();
+
+                // Định dạng giờ và phút thành chuỗi "giờ:phút"
+                var formattedTime = hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+
+                $.ajax({
+                    type: 'POST',
+                    url: $('#chatForm').attr('action'),
+                    data: { content: content, idroom: idroom },
+                    success: function (response) {
+                        if (response.success) {
+                            console.log(response.message);
+
+                            $('#contentInput').val('');
+
+                            // Hiển thị tin nhắn mới với giờ và phút hiện tại
+                            $('.nd2').append('<div class="nguoigui"><div><div class="content">' + content + '</div><p class="time">' + formattedTime + '</p></div><img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1"></div>');
+
+                            // Cuộn xuống cuối trang
+                            scrollToBottom();
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+
+</script>
+
+

@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Dshoadon";
+}
+@model X.PagedList.IPagedList<ChiTietHoaDon>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+<div class="container-fluid">
+    <h1 class="page-header">Chi Tiết Hóa Đơn</h1>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Hóa Đơn</th>
+                            <th scope="col">Hình ảnh</th>
+                            <th scope="col">Sản Phẩm</th>
+                            <th scope="col">Số Lượng</th>
+                            <th scope="col">Tổng Tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.HoaDonId</td>
+                                <td><img src="@item.SanPham.ImageUrl" width="80" height="80" /></td>
+                                <td>@item.SanPham.Name</td>
+                                <td>@item.Quantity</td>
+                                <td>@String.Format("{0:0,0}đ", item.ProductPrice)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                @Html.PagedListPager(Model, page => Url.Action("chitiethoadon", "crudhoadon", new { page = page }))
+            </div>
+        </div>
+    </div>
+</div>
